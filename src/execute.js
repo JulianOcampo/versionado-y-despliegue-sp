@@ -1,7 +1,6 @@
 const { Client } = require('pg')
 const fs = require('fs');
 const argv = require('minimist')(process.argv.slice(2));
-
 const execute = async () => {
     if (!argv.sp) {
         console.error('Es necesario especificar el sp a ejecutar. Ej: node .\src\execute.js --sp nombre-sp')
@@ -14,17 +13,14 @@ const execute = async () => {
         user: 'postgres',
         password: 'postgres',
     })
-
     client
         .connect()
         .then(() => console.log('connected'))
         .catch((err) => console.error('connection error', err.stack))
-
     try {
         const data = fs.readFileSync(`src/store-procedures/${argv.sp}`, 'utf8');
         console.log(data);
         const res = await client.query(data)
-        console.log(res)
         if (res.command == 'CREATE') {
             console.log(`${argv.sp}, ejecutado exitosamente!`)
         } else {
@@ -36,7 +32,5 @@ const execute = async () => {
         await client.end()
         return
     }
-
 }
-
 execute()

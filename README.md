@@ -30,6 +30,12 @@ Demo para propuesta de versionado y despliegue de procedimientos almacenados en 
  npm install --save
 ```
 
+>Preparar ambiente de pruebas
+
+```bash
+ docker-compose up
+```
+
 >Ejecutar cambios
 
 ```bash
